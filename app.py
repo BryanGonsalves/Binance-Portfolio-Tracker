@@ -71,7 +71,10 @@ def main() -> None:
         st.header("Controls")
         quote_symbol = st.selectbox("Preferred quote asset", ["USDT", "BUSD", "FDUSD", "TUSD", "BTC", "BNB"], index=0)
         if st.button("Refresh data"):
-            st.experimental_rerun()
+            if hasattr(st, "rerun"):
+                st.rerun()
+            elif hasattr(st, "experimental_rerun"):
+                st.experimental_rerun()
 
     try:
         with st.spinner("Fetching balances and prices from Binance..."):
